@@ -1,12 +1,17 @@
 import Button from '../../ui/Button';
 import Expense from '../expense/Expense';
 import Modal from '../../ui/Modal';
+import { useState } from 'react';
+import ViewExpensesModal from '../expense/ViewExpensesModal';
 
 function Budget({ budget }) {
+  const [showExpenses, setShowExpenses] = useState(false);
+
   const { name, limit, expenses } = budget;
   const spent = expenses.reduce((total, expense) => {
     return (total += expense.amount);
   }, 0);
+
   return (
     <div className="w-[32rem] mx-auto border-2 border-gray-200 px-6 py-4 h-52 rounded-lg">
       <div className="flex text-2xl justify-between ">
@@ -27,23 +32,19 @@ function Budget({ budget }) {
         <Button styles="text-blue-500 border-2 border-blue-500">
           Add Expense
         </Button>
-        <Button styles="border-2 border-gray-400 text-gray-500">
+        <Button
+          styles="border-2 border-gray-400 text-gray-500"
+          onClick={() => setShowExpenses(true)}
+        >
           View Expenses
         </Button>
-        {/* View Expenses Modal */}
-        {/* <Modal
-          heading={
-            <>
-              Expenses-{`${name} `}
-              <Button styles="border-2 border-red-300 text-red-300">
-                Delete
-              </Button>
-            </>
-          }
-        >
-          <Expense />
-          <Expense />
-        </Modal> */}
+        {showExpenses && (
+          <ViewExpensesModal
+            budget={budget}
+            showExpenses={showExpenses}
+            setShowExpenses={setShowExpenses}
+          />
+        )}
       </div>
     </div>
   );

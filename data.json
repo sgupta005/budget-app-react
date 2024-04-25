@@ -1,0 +1,67 @@
+{
+  "budgets": [
+    {
+      "name": "Groceries",
+      "limit": 250,
+      "expenses": [
+        {
+          "description": "icecream",
+          "amount": 100
+        },
+        {
+          "description": "condoms",
+          "amount": 100
+        }
+      ],
+      "id": "50a8"
+    },
+    {
+      "name": "Entertainment",
+      "limit": 250,
+      "expenses": [
+        {
+          "description": "Tv",
+          "amount": 100
+        },
+        {
+          "description": "Movies",
+          "amount": 100
+        }
+      ],
+      "id": "6115"
+    },
+    {
+      "name": "Food",
+      "limit": 250,
+      "expenses": [
+        {
+          "description": "icecream",
+          "amount": 100
+        },
+        {
+          "description": "kurkure",
+          "amount": 100
+        }
+      ],
+      "id": "282f"
+    },
+    {
+      "id": "bb60",
+      "name": "New",
+      "limit": 100,
+      "expenses": []
+    },
+    {
+      "id": "e799",
+      "name": "sex",
+      "limit": 20,
+      "expenses": []
+    },
+    {
+      "id": "7a23",
+      "name": "chudai",
+      "limit": 30,
+      "expenses": []
+    }
+  ]
+}
