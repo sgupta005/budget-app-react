@@ -1,26 +1,9 @@
 {
   "budgets": [
     {
-      "id": "f285",
-      "name": "Food",
+      "id": "d233",
+      "name": "sec",
       "limit": 300,
-      "expenses": [
-        {
-          "id": 1714120250995,
-          "description": "grocery",
-          "amount": "100"
-        },
-        {
-          "id": 1714120298198,
-          "description": "fjfj",
-          "amount": "34"
-        }
-      ]
-    },
-    {
-      "id": "a67a",
-      "name": "sex",
-      "limit": 100,
       "expenses": []
     }
   ]

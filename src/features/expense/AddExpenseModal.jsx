@@ -6,10 +6,11 @@ import TextInput from '../../ui/TextInput';
 import { useState } from 'react';
 import { useBudget } from '../budget/BudgetContext';
 
-function AddExpenseModal({ setShowAddExpenseModal, budget = null }) {
+function AddExpenseModal({ setShowAddExpenseModal, budget }) {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
-  const { addExpense } = useBudget();
+  const { addExpense, budgets } = useBudget();
+  const [selectedBudget, setSelectedBudget] = useState(() => budgets[0].id);
 
   function onAddExpense() {
     if (!description || !amount || isNaN(amount)) return;
@@ -18,7 +19,8 @@ function AddExpenseModal({ setShowAddExpenseModal, budget = null }) {
       description,
       amount,
     };
-    addExpense(newExpense, budget.id);
+    if (budget) addExpense(newExpense, budget.id);
+    if (!budget && selectedBudget) addExpense(newExpense, selectedBudget);
     setShowAddExpenseModal(false);
   }
   return (
@@ -27,10 +29,10 @@ function AddExpenseModal({ setShowAddExpenseModal, budget = null }) {
       <TextInput value={description} setValue={setDescription} />
       <InputLabel>Amount</InputLabel>
       <TextInput value={amount} setValue={setAmount} />
-      {budget === null && (
+      {!budget && (
         <>
           <InputLabel>Budget</InputLabel>
-          <Dropdown />
+          <Dropdown value={selectedBudget} setValue={setSelectedBudget} />
         </>
       )}
       <AddButton onClick={() => onAddExpense()} />
