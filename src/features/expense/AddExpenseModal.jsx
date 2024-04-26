@@ -13,7 +13,11 @@ function AddExpenseModal({ setShowAddExpenseModal, budget = null }) {
 
   function onAddExpense() {
     if (!description || !amount || isNaN(amount)) return;
-    const newExpense = { description, amount };
+    const newExpense = {
+      id: Date.now(),
+      description,
+      amount,
+    };
     addExpense(newExpense, budget.id);
     setShowAddExpenseModal(false);
   }

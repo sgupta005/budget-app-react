@@ -6,20 +6,14 @@
       "limit": 300,
       "expenses": [
         {
-          "description": "fjjfjf",
-          "amount": "10"
-        },
-        {
-          "description": "condom",
+          "id": 1714120250995,
+          "description": "grocery",
           "amount": "100"
         },
         {
-          "description": "jfjfj",
-          "amount": "40"
-        },
-        {
+          "id": 1714120298198,
           "description": "fjfj",
-          "amount": "10"
+          "amount": "34"
         }
       ]
     },
@@ -27,16 +21,7 @@
       "id": "a67a",
       "name": "sex",
       "limit": 100,
-      "expenses": [
-        {
-          "description": "condom",
-          "amount": "10"
-        },
-        {
-          "description": "rundy",
-          "amount": "200"
-        }
-      ]
+      "expenses": []
     }
   ]
 }

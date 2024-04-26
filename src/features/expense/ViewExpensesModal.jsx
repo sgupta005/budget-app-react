@@ -28,11 +28,7 @@ function ViewExpensesModal({ showExpenses, setShowExpenses, budget }) {
       }
     >
       {budget.expenses.map((expense) => (
-        <Expense
-          key={expense.description}
-          description={expense.description}
-          amount={expense.amount}
-        />
+        <Expense key={expense.description} expense={expense} budget={budget} />
       ))}
     </Modal>
   );

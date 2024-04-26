@@ -36,6 +36,14 @@ function reducer(state, action) {
           budget.id !== action.payload.id ? budget : action.payload.budget
         ),
       };
+    case 'expenses/delete':
+      return {
+        ...state,
+        isLoading: false,
+        budgets: state.budgets.map((budget) =>
+          budget.id !== action.payload.id ? budget : action.payload.budget
+        ),
+      };
     case 'error':
       return { ...state, error: action.payload };
     default:
@@ -95,12 +103,35 @@ function BudgetProvider({ children }) {
         },
         body: JSON.stringify(budget),
       });
-      console.log(updateRes);
       dispatch({ type: 'expenses/add', payload: { id: budgetId, budget } });
     } catch (e) {
       dispatch({
         type: 'error',
         payload: 'There was an error while adding the expense',
+      });
+    }
+  }
+
+  async function deleteExpense(expenseId, budgetId) {
+    dispatch({ type: 'loading' });
+    try {
+      const res = await fetch(`${URL}/${budgetId}`);
+      const budget = await res.json();
+      budget.expenses = budget.expenses.filter(
+        (expense) => expense.id !== expenseId
+      );
+      const updateRes = await fetch(`${URL}/${budgetId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(budget),
+      });
+      dispatch({ type: 'expenses/delete', payload: { id: budgetId, budget } });
+    } catch (e) {
+      dispatch({
+        type: 'error',
+        payload: 'There was an error while deleting the expense.',
       });
     }
   }
@@ -129,6 +160,7 @@ function BudgetProvider({ children }) {
         addBudget,
         deleteBudget,
         addExpense,
+        deleteExpense,
       }}
     >
       {children}

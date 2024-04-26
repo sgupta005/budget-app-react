@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ViewExpensesModal from '../expense/ViewExpensesModal';
 import AddExpenseModal from '../expense/AddExpenseModal';
 
-function Budget({ budget }) {
+function Budget({ budget, showButtons }) {
   const [showExpenses, setShowExpenses] = useState(false);
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
 
@@ -35,18 +35,22 @@ function Budget({ budget }) {
       </div>
 
       <div className="w-max ml-auto space-x-2">
-        <Button
-          styles="text-blue-500 border-2 border-blue-500"
-          onClick={() => setShowAddExpenseModal(true)}
-        >
-          Add Expense
-        </Button>
-        <Button
-          styles="border-2 border-gray-400 text-gray-500"
-          onClick={() => setShowExpenses(true)}
-        >
-          View Expenses
-        </Button>
+        {showButtons && (
+          <>
+            <Button
+              styles="text-blue-500 border-2 border-blue-500"
+              onClick={() => setShowAddExpenseModal(true)}
+            >
+              Add Expense
+            </Button>
+            <Button
+              styles="border-2 border-gray-400 text-gray-500"
+              onClick={() => setShowExpenses(true)}
+            >
+              View Expenses
+            </Button>
+          </>
+        )}
         {showAddExpenseModal && (
           <AddExpenseModal
             setShowAddExpenseModal={setShowAddExpenseModal}
