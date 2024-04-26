@@ -10,7 +10,6 @@ const initialState = {
   error: '',
 };
 
-//Get Budgets, Error, Loading, Add Budget, Delete Budget
 function reducer(state, action) {
   switch (action.type) {
     case 'loading':
@@ -23,6 +22,20 @@ function reducer(state, action) {
         budgets: [...state.budgets, action.payload],
         isLoading: false,
       };
+    case 'budgets/delete':
+      return {
+        ...state,
+        isLoading: false,
+        budgets: state.budgets.filter((budget) => budget.id !== action.payload),
+      };
+    case 'expenses/add':
+      return {
+        ...state,
+        isLoading: false,
+        budgets: state.budgets.map((budget) =>
+          budget.id !== action.payload.id ? budget : action.payload.budget
+        ),
+      };
     case 'error':
       return { ...state, error: action.payload };
     default:
@@ -34,8 +47,8 @@ function BudgetProvider({ children }) {
   const [{ budgets }, dispatch] = useReducer(reducer, initialState);
 
   async function addBudget(newBudget) {
+    dispatch({ type: 'loading' });
     try {
-      dispatch({ type: 'loading' });
       const res = await fetch(URL, {
         method: 'POST',
         headers: {
@@ -49,6 +62,45 @@ function BudgetProvider({ children }) {
       dispatch({
         type: 'error',
         payload: 'There was an error while adding the city',
+      });
+    }
+  }
+
+  async function deleteBudget(id) {
+    dispatch({ type: 'loading' });
+    try {
+      const res = await fetch(`${URL}/${id}`, {
+        method: 'DELETE',
+      });
+      // const data = await res.json();
+      dispatch({ type: 'budgets/delete', payload: id });
+    } catch (e) {
+      dispatch({
+        type: 'error',
+        payload: 'There was an error while deleting the budget',
+      });
+    }
+  }
+
+  async function addExpense(newExpense, budgetId) {
+    dispatch({ type: 'loading' });
+    try {
+      const res = await fetch(`${URL}/${budgetId}`);
+      const budget = await res.json();
+      budget.expenses.push(newExpense);
+      const updateRes = await fetch(`${URL}/${budgetId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(budget),
+      });
+      console.log(updateRes);
+      dispatch({ type: 'expenses/add', payload: { id: budgetId, budget } });
+    } catch (e) {
+      dispatch({
+        type: 'error',
+        payload: 'There was an error while adding the expense',
       });
     }
   }
@@ -73,8 +125,10 @@ function BudgetProvider({ children }) {
   return (
     <BudgetContext.Provider
       value={{
-        addBudget,
         budgets,
+        addBudget,
+        deleteBudget,
+        addExpense,
       }}
     >
       {children}

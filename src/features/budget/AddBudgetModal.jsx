@@ -5,7 +5,7 @@ import AddButton from '../../ui/AddButton';
 import { useState } from 'react';
 import { useBudget } from './BudgetContext';
 
-function AddBudgetModal({ showAddBudgetModal, setShowAddBudgetModal }) {
+function AddBudgetModal({ setShowAddBudgetModal }) {
   const [name, setName] = useState('');
   const [maxSpending, setMaxSpending] = useState('');
   const { addBudget } = useBudget();
@@ -21,11 +21,7 @@ function AddBudgetModal({ showAddBudgetModal, setShowAddBudgetModal }) {
     setShowAddBudgetModal(false);
   }
   return (
-    <Modal
-      heading="New Budget"
-      showModal={showAddBudgetModal}
-      setShowModal={setShowAddBudgetModal}
-    >
+    <Modal heading="New Budget" setShowModal={setShowAddBudgetModal}>
       <InputLabel>Name</InputLabel>
       <TextInput value={name} setValue={setName} />
       <InputLabel>Maximum Spending</InputLabel>

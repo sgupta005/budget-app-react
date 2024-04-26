@@ -1,11 +1,7 @@
 import { useState } from 'react';
-import AddButton from './AddButton';
 import Button from './Button';
-import InputLabel from './InputLabel';
-import Modal from './Modal';
-import SelectInput from './SelectInput';
-import TextInput from './TextInput';
 import AddBudgetModal from '../features/budget/AddBudgetModal';
+import AddExpenseModal from '../features/expense/AddExpenseModal';
 
 function Header() {
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false);
@@ -26,24 +22,13 @@ function Header() {
         >
           Add Expense
         </Button>
-        <AddBudgetModal
-          showAddBudgetModal={showAddBudgetModal}
-          setShowAddBudgetModal={setShowAddBudgetModal}
-        />
 
-        <Modal
-          heading="New Expense"
-          showModal={showAddExpenseModal}
-          setShowModal={setShowAddExpenseModal}
-        >
-          <InputLabel>Description</InputLabel>
-          <TextInput />
-          <InputLabel>Amount</InputLabel>
-          <TextInput />
-          <InputLabel>Budget</InputLabel>
-          <SelectInput />
-          <AddButton />
-        </Modal>
+        {showAddBudgetModal && (
+          <AddBudgetModal setShowAddBudgetModal={setShowAddBudgetModal} />
+        )}
+        {showAddExpenseModal && (
+          <AddExpenseModal setShowAddExpenseModal={setShowAddExpenseModal} />
+        )}
       </div>
     </div>
   );

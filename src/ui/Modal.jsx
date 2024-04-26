@@ -1,12 +1,12 @@
 import { createPortal } from 'react-dom';
 
-function Modal({ heading, children, showModal, setShowModal }) {
+function Modal({ heading, children, setShowModal }) {
   return createPortal(
     <div
       onClick={() => setShowModal(false)}
-      className={`${
-        showModal ? 'flex' : 'hidden'
-      } w-screen h-screen bg-black/40 fixed top-0 left-0 justify-center`}
+      className={
+        'flex w-screen h-screen bg-black/40 fixed top-0 left-0 justify-center'
+      }
     >
       <div
         className=" h-max w-1/2 bg-white rounded-md mt-8"
